@@ -7,9 +7,14 @@ const Product = models.Product;
 router.get("/", async (req, res, next) => {
   try {
     console.log(req.body.data);
-
     const users = await User.findAll();
-    res.status(200).json(users);
+    const response = {
+      firstName: users.firstName,
+      lastName: users.lastName,
+      email: users.email,
+      phone: users.phone,
+    };
+    res.status(200).json(response);
   } catch (err) {
     next(err);
   }
@@ -18,6 +23,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     console.log(req.params);
+    const { id } = req.params;
+    const foundUser = await User.findByPk(id);
+    res.status(200).json(foundUser);
   } catch (err) {
     next(err);
   }
