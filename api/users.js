@@ -8,7 +8,7 @@ router.get("/", async (req, res, next) => {
   try {
     console.log(req.body.data);
     const users = await User.findAll({
-      attributes: ["firstName", "lastName", "phone", "email"],
+      attributes: ["id", "firstName", "lastName", "phone", "email"],
     });
     res.status(200).json(users);
   } catch (err) {
