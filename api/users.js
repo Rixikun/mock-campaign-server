@@ -7,14 +7,10 @@ const Product = models.Product;
 router.get("/", async (req, res, next) => {
   try {
     console.log(req.body.data);
-    const users = await User.findAll();
-    const response = {
-      firstName: users.firstName,
-      lastName: users.lastName,
-      email: users.email,
-      phone: users.phone,
-    };
-    res.status(200).json(response);
+    const users = await User.findAll({
+      attributes: ["firstName", "lastName", "phone", "email"],
+    });
+    res.status(200).json(users);
   } catch (err) {
     next(err);
   }
